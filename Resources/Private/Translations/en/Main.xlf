@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="Calmfox.TwoFactor" source-language="en" datatype="plaintext">
+		<body>
+			<trans-unit id="page.language" xml:space="preserve">
+				<source>en</source>
+			</trans-unit>
+			<trans-unit id="page.signOut" xml:space="preserve">
+				<source>Cancel and sign out</source>
+			</trans-unit>
+			<trans-unit id="method.passkey" xml:space="preserve">
+				<source>Passkey</source>
+			</trans-unit>
+			<trans-unit id="method.passkeys" xml:space="preserve">
+				<source>Passkeys</source>
+			</trans-unit>
+			<trans-unit id="method.app" xml:space="preserve">
+				<source>Authenticator app</source>
+			</trans-unit>
+			<trans-unit id="method.recommended" xml:space="preserve">
+				<source>Recommended</source>
+			</trans-unit>
+			<trans-unit id="challenge.title" xml:space="preserve">
+				<source>Two-step verification</source>
+			</trans-unit>
+			<trans-unit id="challenge.greeting" xml:space="preserve">
+				<source>Hello {0}, one more step and you are in.</source>
+			</trans-unit>
+			<trans-unit id="challenge.passkey.lead" xml:space="preserve">
+				<source>Confirm it is you with your passkey: a fingerprint, your face or the PIN of this device.</source>
+			</trans-unit>
+			<trans-unit id="challenge.passkey.button" xml:space="preserve">
+				<source>Use a passkey</source>
+			</trans-unit>
+			<trans-unit id="challenge.or" xml:space="preserve">
+				<source>or</source>
+			</trans-unit>
+			<trans-unit id="challenge.app.lead" xml:space="preserve">
+				<source>Enter the 6-digit code from your authenticator app.</source>
+			</trans-unit>
+			<trans-unit id="challenge.app.hint" xml:space="preserve">
+				<source>A new code appears every 30 seconds.</source>
+			</trans-unit>
+			<trans-unit id="challenge.app.button" xml:space="preserve">
+				<source>Confirm</source>
+			</trans-unit>
+			<trans-unit id="setup.title" xml:space="preserve">
+				<source>Set up two-step verification</source>
+			</trans-unit>
+			<trans-unit id="setup.lead" xml:space="preserve">
+				<source>Hello {0}. From now on, after your password the backend will ask for one more confirmation. Choose how you want to give it. This takes a minute.</source>
+			</trans-unit>
+			<trans-unit id="setup.passkey.lead" xml:space="preserve">
+				<source>Press the button and confirm with your fingerprint, your face or the PIN of this device. Your browser may also offer to save the passkey on your phone.</source>
+			</trans-unit>
+			<trans-unit id="setup.passkey.button" xml:space="preserve">
+				<source>Create a passkey</source>
+			</trans-unit>
+			<trans-unit id="setup.choice.passkey" xml:space="preserve">
+				<source>Your fingerprint, your face or the PIN of this device. Nothing to retype, and a fake sign-in page cannot use it.</source>
+			</trans-unit>
+			<trans-unit id="setup.choice.app" xml:space="preserve">
+				<source>A 6-digit code from an app on your phone, such as Google Authenticator or 1Password.</source>
+			</trans-unit>
+			<trans-unit id="setup.back" xml:space="preserve">
+				<source>Choose another method</source>
+			</trans-unit>
+			<trans-unit id="pair.install" xml:space="preserve">
+				<source>Install an authenticator app, for example Google Authenticator, Microsoft Authenticator, 1Password or Aegis.</source>
+			</trans-unit>
+			<trans-unit id="pair.scan" xml:space="preserve">
+				<source>Scan this code with the app.</source>
+			</trans-unit>
+			<trans-unit id="pair.qrAlt" xml:space="preserve">
+				<source>QR code for your authenticator app</source>
+			</trans-unit>
+			<trans-unit id="pair.cannotScan" xml:space="preserve">
+				<source>Cannot scan the code?</source>
+			</trans-unit>
+			<trans-unit id="pair.typeKey" xml:space="preserve">
+				<source>Add the account {0} in the app and type this key:</source>
+			</trans-unit>
+			<trans-unit id="pair.enterCode" xml:space="preserve">
+				<source>Enter the 6-digit code the app shows</source>
+			</trans-unit>
+			<trans-unit id="pair.button" xml:space="preserve">
+				<source>Turn on</source>
+			</trans-unit>
+			<trans-unit id="passkey.waiting" xml:space="preserve">
+				<source>Waiting for your device…</source>
+			</trans-unit>
+			<trans-unit id="passkey.unsupported" xml:space="preserve">
+				<source>This browser cannot use passkeys. Use the code from your authenticator app instead.</source>
+			</trans-unit>
+			<trans-unit id="passkey.unsupportedSetup" xml:space="preserve">
+				<source>This browser cannot create passkeys. Use an authenticator app instead, or open this page in a current browser.</source>
+			</trans-unit>
+			<trans-unit id="error.generic" xml:space="preserve">
+				<source>Something went wrong. Please try again.</source>
+			</trans-unit>
+			<trans-unit id="error.wrongCode" xml:space="preserve">
+				<source>That code is not right. Check the time on your phone and enter the code it shows now.</source>
+			</trans-unit>
+			<trans-unit id="error.tooManyAttempts" xml:space="preserve">
+				<source>Too many wrong codes. Sign in with your password again.</source>
+			</trans-unit>
+			<trans-unit id="error.setupExpired" xml:space="preserve">
+				<source>The setup took too long. Please scan the code again.</source>
+			</trans-unit>
+			<trans-unit id="error.expired" xml:space="preserve">
+				<source>The request has expired. Please try again.</source>
+			</trans-unit>
+			<trans-unit id="error.passkeyRejected" xml:space="preserve">
+				<source>The response from your device could not be verified. Please try again.</source>
+			</trans-unit>
+			<trans-unit id="error.passkeyAlreadyPaired" xml:space="preserve">
+				<source>This passkey is already paired with your account.</source>
+			</trans-unit>
+			<trans-unit id="error.passkeysOff" xml:space="preserve">
+				<source>Passkeys are turned off for this backend.</source>
+			</trans-unit>
+			<trans-unit id="error.passkeysNeedHttps" xml:space="preserve">
+				<source>Passkeys need a secure connection (https). Ask your administrator to enable it.</source>
+			</trans-unit>
+			<trans-unit id="error.lastMethod" xml:space="preserve">
+				<source>This is your only second factor, and two-step verification is required. Add another method first, then remove this one.</source>
+			</trans-unit>
+			<trans-unit id="error.noSuchAccount" xml:space="preserve">
+				<source>This account no longer exists.</source>
+			</trans-unit>
+			<trans-unit id="success.appPaired" xml:space="preserve">
+				<source>Two-step verification is on. From now on we will ask for a code when you sign in.</source>
+			</trans-unit>
+			<trans-unit id="success.passkeyPaired" xml:space="preserve">
+				<source>Your passkey is ready. From now on you will confirm signing in with it.</source>
+			</trans-unit>
+			<trans-unit id="success.passkeyAdded" xml:space="preserve">
+				<source>The passkey has been added.</source>
+			</trans-unit>
+			<trans-unit id="success.passkeyRemoved" xml:space="preserve">
+				<source>The passkey has been removed.</source>
+			</trans-unit>
+			<trans-unit id="success.appRemoved" xml:space="preserve">
+				<source>The authenticator app has been removed.</source>
+			</trans-unit>
+			<trans-unit id="success.policyChanged" xml:space="preserve">
+				<source>The policy has been saved.</source>
+			</trans-unit>
+			<trans-unit id="success.reset" xml:space="preserve">
+				<source>Two-step verification for {0} has been reset. They will pair a new device at their next sign-in.</source>
+			</trans-unit>
+			<trans-unit id="success.turnedOff" xml:space="preserve">
+				<source>Two-step verification for {0} has been turned off.</source>
+			</trans-unit>
+			<trans-unit id="status.paired" xml:space="preserve">
+				<source>paired</source>
+			</trans-unit>
+			<trans-unit id="status.notPaired" xml:space="preserve">
+				<source>not paired</source>
+			</trans-unit>
+			<trans-unit id="status.pairingDue" xml:space="preserve">
+				<source>pairing required</source>
+			</trans-unit>
+			<trans-unit id="status.app" xml:space="preserve">
+				<source>app</source>
+			</trans-unit>
+			<trans-unit id="policy.required" xml:space="preserve">
+				<source>Required for all users</source>
+			</trans-unit>
+			<trans-unit id="policy.required.description" xml:space="preserve">
+				<source>Every backend user pairs a passkey or an authenticator app. Until they do, they only reach the setup page.</source>
+			</trans-unit>
+			<trans-unit id="policy.optional" xml:space="preserve">
+				<source>Optional</source>
+			</trans-unit>
+			<trans-unit id="policy.optional.description" xml:space="preserve">
+				<source>Each user decides in their own settings. Anyone whose second factor was reset is asked to pair again.</source>
+			</trans-unit>
+			<trans-unit id="policy.disabled" xml:space="preserve">
+				<source>Turned off</source>
+			</trans-unit>
+			<trans-unit id="policy.disabled.description" xml:space="preserve">
+				<source>Nobody is asked. Paired methods are kept for when the policy changes back.</source>
+			</trans-unit>
+			<trans-unit id="users.section.title" xml:space="preserve">
+				<source>Two-step verification</source>
+			</trans-unit>
+			<trans-unit id="users.policy.title" xml:space="preserve">
+				<source>Who must use a second factor</source>
+			</trans-unit>
+			<trans-unit id="users.policy.save" xml:space="preserve">
+				<source>Save the policy</source>
+			</trans-unit>
+			<trans-unit id="users.list.title" xml:space="preserve">
+				<source>Users</source>
+			</trans-unit>
+			<trans-unit id="users.list.user" xml:space="preserve">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="users.list.status" xml:space="preserve">
+				<source>Second factor</source>
+			</trans-unit>
+			<trans-unit id="users.list.you" xml:space="preserve">
+				<source>you</source>
+			</trans-unit>
+			<trans-unit id="users.list.uncovered" xml:space="preserve">
+				<source>Users without a second factor: {0}.</source>
+			</trans-unit>
+			<trans-unit id="users.list.allCovered" xml:space="preserve">
+				<source>Every user has a second factor.</source>
+			</trans-unit>
+			<trans-unit id="users.list.disabled" xml:space="preserve">
+				<source>Two-step verification is turned off for the whole backend. Anything paired is kept and will be asked for again once the policy changes.</source>
+			</trans-unit>
+			<trans-unit id="users.reset" xml:space="preserve">
+				<source>Reset</source>
+			</trans-unit>
+			<trans-unit id="users.turnOff" xml:space="preserve">
+				<source>Turn off</source>
+			</trans-unit>
+			<trans-unit id="users.legend.reset" xml:space="preserve">
+				<source>For a lost or replaced phone. Everything paired is removed, the user is signed out everywhere and pairs a new device at the next sign-in.</source>
+			</trans-unit>
+			<trans-unit id="users.legend.turnOff" xml:space="preserve">
+				<source>Everything paired is removed, and the policy decides what happens next.</source>
+			</trans-unit>
+			<trans-unit id="users.resetConfirm" xml:space="preserve">
+				<source>Reset two-step verification for {0}? Their authenticator app and passkeys will be removed, they will be signed out, and they will have to pair a new device at their next sign-in.</source>
+			</trans-unit>
+			<trans-unit id="users.turnOffConfirm" xml:space="preserve">
+				<source>Turn off two-step verification for {0}? Their authenticator app and passkeys will be removed. If the policy requires a second factor, they will be asked to pair one at their next sign-in.</source>
+			</trans-unit>
+			<trans-unit id="account.lead" xml:space="preserve">
+				<source>After your password, the backend asks for a second factor: a passkey on this or another device, or a code from an authenticator app. You can have both, and more than one passkey.</source>
+			</trans-unit>
+			<trans-unit id="account.impersonating" xml:space="preserve">
+				<source>You are acting as another user. Their second factor can only be changed by them, or reset by an administrator under Administration.</source>
+			</trans-unit>
+			<trans-unit id="account.policyDisabled" xml:space="preserve">
+				<source>Two-step verification is turned off for the whole backend. What you have paired is kept and will be asked for again once it is turned back on.</source>
+			</trans-unit>
+			<trans-unit id="account.passkeys.lead" xml:space="preserve">
+				<source>A fingerprint, a face or the device PIN. Cannot be phished and there is nothing to retype. Add one on each device you sign in from.</source>
+			</trans-unit>
+			<trans-unit id="account.passkeys.added" xml:space="preserve">
+				<source>Added</source>
+			</trans-unit>
+			<trans-unit id="account.passkeys.lastUsed" xml:space="preserve">
+				<source>Last used</source>
+			</trans-unit>
+			<trans-unit id="account.passkeys.never" xml:space="preserve">
+				<source>never</source>
+			</trans-unit>
+			<trans-unit id="account.passkeys.add" xml:space="preserve">
+				<source>Add a passkey on this device</source>
+			</trans-unit>
+			<trans-unit id="account.passkeys.removeConfirm" xml:space="preserve">
+				<source>Remove this passkey? The device will no longer be able to confirm your sign-in.</source>
+			</trans-unit>
+			<trans-unit id="account.remove" xml:space="preserve">
+				<source>Remove</source>
+			</trans-unit>
+			<trans-unit id="account.app.paired" xml:space="preserve">
+				<source>Your sign-in can be confirmed with a code from the app.</source>
+			</trans-unit>
+			<trans-unit id="account.app.remove" xml:space="preserve">
+				<source>Remove the app</source>
+			</trans-unit>
+			<trans-unit id="account.app.removeConfirm" xml:space="preserve">
+				<source>Remove the authenticator app? Its codes will no longer be accepted.</source>
+			</trans-unit>
+			<trans-unit id="account.app.unreadable" xml:space="preserve">
+				<source>The app paired earlier can no longer be checked, because the installation's encryption key has changed. Pair it again below.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,123 @@
+Calmfox:
+  TwoFactor:
+    # Who has to use a second factor until somebody changes it in the backend
+    # (Administration → Two-Factor Authentication) or with
+    # ./flow twofactor:policy. Once it has been changed there, the stored value
+    # wins and this one is no longer read.
+    #   required: every backend user pairs a passkey or an authenticator app;
+    #             until they do, they only reach the setup page,
+    #   optional: each user decides in their own settings,
+    #   disabled: nobody is asked; anything paired is kept.
+    defaultPolicy: required
+
+    # The authentication providers whose users are asked for a second factor.
+    # Neos signs editors in through 'Neos.Neos:Backend'. A provider added here
+    # also needs the request pattern below, otherwise its users cannot reach
+    # the verification page.
+    authenticationProviders:
+      - 'Neos.Neos:Backend'
+
+    totp:
+      # The account label in Google Authenticator, 1Password, Aegis and the
+      # rest. Empty: the host name of the site.
+      issuer: ''
+      # How many 30-second steps either side of now a code is still accepted.
+      # 1 is half a minute of drift, which covers a phone whose clock is a
+      # little off. Higher values make guessing easier.
+      window: 1
+
+    passkeys:
+      enabled: true
+      # What the phone or laptop calls this site when it creates a passkey.
+      # Empty: the host name of the site.
+      name: ''
+      # The domain passkeys are bound to (the WebAuthn relying party id), e.g.
+      # example.com. Empty: the host of the request. Changing it makes every
+      # paired passkey stop working, so set it before anybody pairs one if the
+      # backend is reached under more than one host name.
+      domain: ''
+
+    # Wrong codes allowed in one sign-in. After the last one the session ends
+    # and the password has to be typed again, so guessing costs a password
+    # for every few codes.
+    maximumAttempts: 5
+
+  # The sections Calmfox packages add to a user's page in Neos' user management
+  # (details and edit), shared with calmfox/neos-admin-invitation-package: each
+  # package registers its own, and either package's page frame renders all of
+  # them. See Classes/ViewHelpers/UserSectionsViewHelper.php.
+  UserManagement:
+    sections:
+      'Calmfox.TwoFactor:SecondFactor':
+        position: 'end'
+        renderer: 'Calmfox\TwoFactor\UserManagement\TwoFactorSection'
+
+Neos:
+  Flow:
+    object:
+      # The core is plain PHP with value objects that create themselves
+      # (new self). Left to Flow, each class would be renamed and proxied, and
+      # "new self" would return the unproxied original, which no longer
+      # matches its own return type. The core needs nothing Flow offers, so
+      # Flow leaves it alone. Flow only knows a list of classes to include,
+      # hence "everything that is not the core".
+      includeClasses:
+        'Calmfox.TwoFactor':
+          - '^(?!Calmfox\\TwoFactor\\Core\\|Calmfox\\TwoFactor\\Passkey\\PasskeyException$)'
+
+    http:
+      middlewares:
+        # Right after Flow's router: our few addresses are answered by our own
+        # controllers whatever the project's Routes.yaml says. See
+        # Classes/Core/Http/Paths.php for why this is not a Routes.yaml entry.
+        'calmfoxTwoFactorRoutes':
+          position: 'after routing'
+          middleware: 'Calmfox\TwoFactor\Http\RoutingMiddleware'
+        # After the security context knows the request, before anything is
+        # dispatched: a user who has typed only their password gets no further
+        # than the verification page.
+        'calmfoxTwoFactorGuard':
+          position: 'after securityEntryPoint'
+          middleware: 'Calmfox\TwoFactor\Http\GuardMiddleware'
+
+    security:
+      authentication:
+        providers:
+          'Neos.Neos:Backend':
+            requestPatterns:
+              # Without this the backend session is not active on our pages,
+              # and the verification page would not know who is verifying.
+              'Calmfox.TwoFactor:Controllers':
+                pattern: 'ControllerObjectName'
+                patternOptions:
+                  controllerObjectNamePattern: 'Calmfox\TwoFactor\Controller\.*'
+
+  Neos:
+    modules:
+      administration:
+        submodules:
+          twoFactor:
+            label: 'Calmfox.TwoFactor:Modules:users.label'
+            controller: 'Calmfox\TwoFactor\Controller\Module\UsersController'
+            description: 'Calmfox.TwoFactor:Modules:users.description'
+            icon: 'fas fa-user-shield'
+            mainStylesheet: 'Lite'
+            privilegeTarget: 'Calmfox.TwoFactor:Module.Users'
+      user:
+        submodules:
+          twoFactor:
+            label: 'Calmfox.TwoFactor:Modules:account.label'
+            controller: 'Calmfox\TwoFactor\Controller\Module\AccountController'
+            description: 'Calmfox.TwoFactor:Modules:account.description'
+            icon: 'fas fa-key'
+            mainStylesheet: 'Lite'
+            privilegeTarget: 'Calmfox.TwoFactor:Module.Account'
+    userInterface:
+      translation:
+        # The menus of the content editor are drawn in the browser, from the
+        # translations Neos sends it (xliff.json). Only sources listed here are
+        # sent, so without this entry the menu shows the raw label ids. Only
+        # the small Modules source, not every text of the package.
+        autoInclude:
+          'Calmfox.TwoFactor':
+            - Modules

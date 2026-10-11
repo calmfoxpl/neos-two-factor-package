@@ -1,0 +1,47 @@
+<f:layout name="Page" />
+
+<f:section name="title"><f:translate id="challenge.title" package="Calmfox.TwoFactor" /></f:section>
+
+<f:section name="content">
+	<h1 class="cf2fa-title"><f:translate id="challenge.title" package="Calmfox.TwoFactor" /></h1>
+	<p class="cf2fa-lead"><f:translate id="challenge.greeting" package="Calmfox.TwoFactor" arguments="{0: name}" /></p>
+
+	<f:if condition="{hasPasskeys}">
+		<section class="cf2fa-method" id="cf2fa-passkey">
+			<p><f:translate id="challenge.passkey.lead" package="Calmfox.TwoFactor" /></p>
+			<button type="button" class="neos-button neos-button-primary cf2fa-wide"
+				data-calmfox-passkey="login"
+				data-options-uri="{passkeyOptionsUri}"
+				data-uri="{passkeyUri}"
+				data-csrf="{f:security.csrfToken()}"
+				data-status="cf2fa-passkey-status"
+				data-waiting="{f:translate(id: 'passkey.waiting', package: 'Calmfox.TwoFactor')}"
+				data-unsupported="{f:translate(id: 'passkey.unsupported', package: 'Calmfox.TwoFactor')}"
+				data-failed="{f:translate(id: 'error.generic', package: 'Calmfox.TwoFactor')}">
+				<f:translate id="challenge.passkey.button" package="Calmfox.TwoFactor" />
+			</button>
+			<p class="cf2fa-status" id="cf2fa-passkey-status" role="status" aria-live="polite"></p>
+		</section>
+	</f:if>
+
+	<f:if condition="{hasApp}">
+		<f:if condition="{hasPasskeys}">
+			<p class="cf2fa-or"><f:translate id="challenge.or" package="Calmfox.TwoFactor" /></p>
+		</f:if>
+		<form method="post" action="{verifyUri}" class="cf2fa-method" autocomplete="off">
+			<input type="hidden" name="__csrfToken" value="{f:security.csrfToken()}" />
+			<label for="cf2fa-code"><f:translate id="challenge.app.lead" package="Calmfox.TwoFactor" /></label>
+			<input type="text" name="code" id="cf2fa-code" class="cf2fa-code" inputmode="numeric" minlength="6" maxlength="6"
+				autocomplete="one-time-code" required="required" placeholder="000000" aria-describedby="cf2fa-code-hint" />
+			<p class="cf2fa-hint" id="cf2fa-code-hint"><f:translate id="challenge.app.hint" package="Calmfox.TwoFactor" /></p>
+			<button type="submit" class="neos-button {f:if(condition: hasPasskeys, else: 'neos-button-primary')} cf2fa-wide">
+				<f:translate id="challenge.app.button" package="Calmfox.TwoFactor" />
+			</button>
+		</form>
+	</f:if>
+
+	<form method="post" action="{signOutUri}" class="cf2fa-sign-out">
+		<input type="hidden" name="__csrfToken" value="{f:security.csrfToken()}" />
+		<button type="submit" class="cf2fa-link"><f:translate id="page.signOut" package="Calmfox.TwoFactor" /></button>
+	</form>
+</f:section>

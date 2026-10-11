@@ -1,0 +1,43 @@
+#
+# Neos denies every controller action that no privilege grants
+# (Neos.Neos:AllControllerActions), so each of ours is named here.
+#
+# The pages between the password and the backend are open to any signed-in
+# user: they are how the second factor is given. Whether the person may be on
+# them right now is decided in the controllers, which ask the same Guard as
+# the middleware.
+#
+privilegeTargets:
+
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+
+    'Calmfox.TwoFactor:SecondFactor':
+      label: 'Pair and answer a second factor'
+      matcher: 'method(Calmfox\TwoFactor\Controller\(Challenge|Setup|AccountPasskey)Controller->.*Action())'
+
+    'Calmfox.TwoFactor:Module.Account':
+      label: 'Manage your own second factor'
+      matcher: 'method(Calmfox\TwoFactor\Controller\Module\AccountController->.*Action())'
+
+    'Calmfox.TwoFactor:Module.Users':
+      label: 'Set the two-factor policy and reset other users'' second factor'
+      matcher: 'method(Calmfox\TwoFactor\Controller\(Module\UsersController|ManageController)->.*Action())'
+
+roles:
+
+  # Everybody who can sign in manages their own second factor, whatever else
+  # their roles allow: a user manager without editing rights needs one too.
+  'Neos.Flow:AuthenticatedUser':
+    privileges:
+      -
+        privilegeTarget: 'Calmfox.TwoFactor:SecondFactor'
+        permission: GRANT
+      -
+        privilegeTarget: 'Calmfox.TwoFactor:Module.Account'
+        permission: GRANT
+
+  'Neos.Neos:Administrator':
+    privileges:
+      -
+        privilegeTarget: 'Calmfox.TwoFactor:Module.Users'
+        permission: GRANT

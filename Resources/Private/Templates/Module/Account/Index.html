@@ -1,0 +1,121 @@
+<f:layout name="BackendSubModule" />
+
+<f:section name="content">
+<link rel="stylesheet" href="{moduleStylesheetUri}" />
+<div class="cf2fa-module">
+	<f:if condition="{unavailable}">
+		<f:then>
+			<p class="cf2fa-callout cf2fa-callout--warning"><f:translate id="account.impersonating" package="Calmfox.TwoFactor" /></p>
+		</f:then>
+		<f:else>
+			<p class="cf2fa-module-lead"><f:translate id="account.lead" package="Calmfox.TwoFactor" /></p>
+
+			<f:if condition="{active}">
+				<f:else>
+					<p class="cf2fa-callout cf2fa-callout--warning"><f:translate id="account.policyDisabled" package="Calmfox.TwoFactor" /></p>
+				</f:else>
+			</f:if>
+
+			<f:if condition="{passkeysEnabled}">
+				<section class="cf2fa-panel">
+					<header class="cf2fa-panel-header">
+						<span class="cf2fa-panel-icon cf2fa-panel-icon--accent"><f:render partial="Icon/Key" /></span>
+						<h2>
+							<f:translate id="method.passkeys" package="Calmfox.TwoFactor" />
+							<span class="cf2fa-tag"><f:translate id="method.recommended" package="Calmfox.TwoFactor" /></span>
+						</h2>
+					</header>
+					<p class="cf2fa-panel-text"><f:translate id="account.passkeys.lead" package="Calmfox.TwoFactor" /></p>
+
+					<f:if condition="{passkeys}">
+						<ul class="cf2fa-list">
+							<f:for each="{passkeys}" as="passkey">
+								<li class="cf2fa-list-item">
+									<span class="cf2fa-list-icon"><f:render partial="Icon/Key" /></span>
+									<span class="cf2fa-list-body">
+										<span class="cf2fa-list-title">{passkey.name}</span>
+										<span class="cf2fa-list-meta">
+											<f:translate id="account.passkeys.added" package="Calmfox.TwoFactor" />
+											<f:if condition="{passkey.createdAt}"><f:format.date format="Y-m-d H:i">{passkey.createdAt}</f:format.date></f:if>
+											·
+											<f:translate id="account.passkeys.lastUsed" package="Calmfox.TwoFactor" />
+											<f:if condition="{passkey.lastUsedAt}">
+												<f:then><f:format.date format="Y-m-d H:i">{passkey.lastUsedAt}</f:format.date></f:then>
+												<f:else><f:translate id="account.passkeys.never" package="Calmfox.TwoFactor" /></f:else>
+											</f:if>
+										</span>
+									</span>
+									<f:form action="removePasskey" arguments="{passkey: passkey.id}" class="cf2fa-inline" data="{confirm: confirmRemovePasskey}">
+										<button type="submit" class="cf2fa-action cf2fa-action--danger"><f:translate id="account.remove" package="Calmfox.TwoFactor" /></button>
+									</f:form>
+								</li>
+							</f:for>
+						</ul>
+					</f:if>
+
+					<f:if condition="{active}">
+						<f:if condition="{passkeysAvailable}">
+							<f:then>
+								<div class="cf2fa-panel-actions">
+									<button type="button" class="neos-button neos-button-primary"
+										data-calmfox-passkey="register"
+										data-options-uri="{passkeyOptionsUri}"
+										data-uri="{passkeyUri}"
+										data-csrf="{f:security.csrfToken()}"
+										data-status="cf2fa-passkey-status"
+										data-waiting="{f:translate(id: 'passkey.waiting', package: 'Calmfox.TwoFactor')}"
+										data-unsupported="{f:translate(id: 'passkey.unsupportedSetup', package: 'Calmfox.TwoFactor')}"
+										data-failed="{f:translate(id: 'error.generic', package: 'Calmfox.TwoFactor')}">
+										<f:translate id="account.passkeys.add" package="Calmfox.TwoFactor" />
+									</button>
+									<span class="cf2fa-status" id="cf2fa-passkey-status" role="status" aria-live="polite"></span>
+								</div>
+							</f:then>
+							<f:else>
+								<p class="cf2fa-callout cf2fa-callout--warning"><f:translate id="error.passkeysNeedHttps" package="Calmfox.TwoFactor" /></p>
+							</f:else>
+						</f:if>
+					</f:if>
+				</section>
+			</f:if>
+
+			<section class="cf2fa-panel">
+				<header class="cf2fa-panel-header">
+					<span class="cf2fa-panel-icon"><f:render partial="Icon/Phone" /></span>
+					<h2><f:translate id="method.app" package="Calmfox.TwoFactor" /></h2>
+				</header>
+				<f:if condition="{hasApp}">
+					<f:then>
+						<ul class="cf2fa-list">
+							<li class="cf2fa-list-item">
+								<span class="cf2fa-list-icon"><f:render partial="Icon/Phone" /></span>
+								<span class="cf2fa-list-body">
+									<span class="cf2fa-list-title"><span class="cf2fa-pill cf2fa-pill--on"><f:translate id="status.paired" package="Calmfox.TwoFactor" /></span></span>
+									<span class="cf2fa-list-meta"><f:translate id="account.app.paired" package="Calmfox.TwoFactor" /></span>
+								</span>
+								<f:form action="removeApp" class="cf2fa-inline" data="{confirm: confirmRemoveApp}">
+									<button type="submit" class="cf2fa-action cf2fa-action--danger"><f:translate id="account.app.remove" package="Calmfox.TwoFactor" /></button>
+								</f:form>
+							</li>
+						</ul>
+					</f:then>
+					<f:else>
+						<f:if condition="{unreadableApp}">
+							<p class="cf2fa-callout cf2fa-callout--warning"><f:translate id="account.app.unreadable" package="Calmfox.TwoFactor" /></p>
+						</f:if>
+						<f:if condition="{pairing}">
+							<f:then>
+								<f:render partial="PairApp" arguments="{qrCode: pairing.qrCode, readableSecret: pairing.readableSecret, accountLabel: pairing.accountLabel, action: '{f:uri.action(action: \'pairApp\')}', fieldName: 'moduleArguments[code]', primary: 1}" />
+							</f:then>
+							<f:else>
+								<p><span class="cf2fa-pill cf2fa-pill--off"><f:translate id="status.notPaired" package="Calmfox.TwoFactor" /></span></p>
+							</f:else>
+						</f:if>
+					</f:else>
+				</f:if>
+			</section>
+		</f:else>
+	</f:if>
+</div>
+<script src="{passkeyScriptUri}"></script>
+</f:section>

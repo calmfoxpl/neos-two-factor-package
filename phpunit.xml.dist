@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Unit tests for the framework-free core (the one-time passwords, the base32 they travel in,
+    the policy decisions, the passkey bookkeeping, the sealed secret and the page addresses)
+    and for the package's wiring: settings, policy, translations. They need neither Neos nor a
+    database:
+
+        phpunit -c phpunit.xml.dist
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache"
+         failOnWarning="true"
+         failOnRisky="true"
+         beStrictAboutOutputDuringTests="true">
+    <testsuites>
+        <testsuite name="calmfox-neos-two-factor">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">Classes/Core</directory>
+        </include>
+    </source>
+</phpunit>

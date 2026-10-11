@@ -1,0 +1,26 @@
+<section class="cf2fa-method cf2fa-pair">
+	<f:if condition="{title}"><h2 class="cf2fa-subtitle"><f:translate id="method.app" package="Calmfox.TwoFactor" /></h2></f:if>
+	<ol class="cf2fa-steps">
+		<li><f:translate id="pair.install" package="Calmfox.TwoFactor" /></li>
+		<li>
+			<f:translate id="pair.scan" package="Calmfox.TwoFactor" />
+			<img class="cf2fa-qr" src="{qrCode}" width="200" height="200" alt="{f:translate(id: 'pair.qrAlt', package: 'Calmfox.TwoFactor')}" />
+			<details class="cf2fa-manual">
+				<summary><f:translate id="pair.cannotScan" package="Calmfox.TwoFactor" /></summary>
+				<p><f:translate id="pair.typeKey" package="Calmfox.TwoFactor" arguments="{0: accountLabel}" /></p>
+				<code class="cf2fa-secret">{readableSecret}</code>
+			</details>
+		</li>
+		<li>
+			<form method="post" action="{action}" autocomplete="off">
+				<input type="hidden" name="__csrfToken" value="{f:security.csrfToken()}" />
+				<label for="cf2fa-pair-code"><f:translate id="pair.enterCode" package="Calmfox.TwoFactor" /></label>
+				<input type="text" name="{fieldName}" id="cf2fa-pair-code" class="cf2fa-code" inputmode="numeric" minlength="6" maxlength="6"
+					autocomplete="one-time-code" required="required" placeholder="000000" />
+				<button type="submit" class="neos-button {f:if(condition: primary, then: 'neos-button-primary')} cf2fa-wide">
+					<f:translate id="pair.button" package="Calmfox.TwoFactor" />
+				</button>
+			</form>
+		</li>
+	</ol>
+</section>

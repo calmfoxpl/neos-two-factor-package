@@ -1,0 +1,76 @@
+<f:layout name="Page" />
+
+<f:section name="title"><f:translate id="setup.title" package="Calmfox.TwoFactor" /></f:section>
+
+<f:section name="content">
+	<f:switch expression="{method}">
+		<f:case value="passkey">
+			<h1 class="cf2fa-title"><f:translate id="method.passkey" package="Calmfox.TwoFactor" /></h1>
+			<p class="cf2fa-lead"><f:translate id="setup.passkey.lead" package="Calmfox.TwoFactor" /></p>
+			<f:if condition="{passkeysAvailable}">
+				<f:then>
+					<button type="button" class="neos-button neos-button-primary cf2fa-wide"
+						data-calmfox-passkey="register"
+						data-options-uri="{passkeyOptionsUri}"
+						data-uri="{passkeyUri}"
+						data-csrf="{f:security.csrfToken()}"
+						data-status="cf2fa-passkey-status"
+						data-waiting="{f:translate(id: 'passkey.waiting', package: 'Calmfox.TwoFactor')}"
+						data-unsupported="{f:translate(id: 'passkey.unsupportedSetup', package: 'Calmfox.TwoFactor')}"
+						data-failed="{f:translate(id: 'error.generic', package: 'Calmfox.TwoFactor')}">
+						<f:translate id="setup.passkey.button" package="Calmfox.TwoFactor" />
+					</button>
+					<p class="cf2fa-status" id="cf2fa-passkey-status" role="status" aria-live="polite"></p>
+				</f:then>
+				<f:else>
+					<p class="cf2fa-message cf2fa-message--error"><f:translate id="error.passkeysNeedHttps" package="Calmfox.TwoFactor" /></p>
+				</f:else>
+			</f:if>
+			<p class="cf2fa-back"><a href="{chooseUri}" class="cf2fa-link"><f:translate id="setup.back" package="Calmfox.TwoFactor" /></a></p>
+		</f:case>
+
+		<f:case value="app">
+			<h1 class="cf2fa-title"><f:translate id="method.app" package="Calmfox.TwoFactor" /></h1>
+			<f:render partial="PairApp" arguments="{qrCode: qrCode, readableSecret: readableSecret, accountLabel: accountLabel, action: pairAppUri, fieldName: 'code', primary: 1}" />
+			<f:if condition="{canChoose}">
+				<p class="cf2fa-back"><a href="{chooseUri}" class="cf2fa-link"><f:translate id="setup.back" package="Calmfox.TwoFactor" /></a></p>
+			</f:if>
+		</f:case>
+
+		<f:defaultCase>
+			<h1 class="cf2fa-title"><f:translate id="setup.title" package="Calmfox.TwoFactor" /></h1>
+			<p class="cf2fa-lead"><f:translate id="setup.lead" package="Calmfox.TwoFactor" arguments="{0: name}" /></p>
+
+			<nav class="cf2fa-choices" aria-label="{f:translate(id: 'setup.title', package: 'Calmfox.TwoFactor')}">
+				<a href="{choosePasskeyUri}" class="cf2fa-choice cf2fa-choice--passkey">
+					<span class="cf2fa-choice-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11c0 3.5-.9 6.6-2.6 9"/><path d="M8.5 7.8A4 4 0 0 1 16 10c0 1.3-.1 2.6-.3 3.8"/><path d="M5.6 9.3A6.5 6.5 0 0 1 18.5 10c0 2.6-.3 5.1-1 7.4"/><path d="M4 13.8c.3-1.3.5-2.6.5-3.8 0-1.6.5-3.2 1.4-4.4"/><path d="M8.2 3.9A8.5 8.5 0 0 1 20.4 8.6"/><path d="M13.6 17.2c-.4 1.3-1 2.5-1.6 3.6"/><path d="M8.9 14.4c-.3 1.8-1 3.4-2 4.8"/></g></svg>
+					</span>
+					<span class="cf2fa-choice-body">
+						<span class="cf2fa-choice-title">
+							<f:translate id="method.passkey" package="Calmfox.TwoFactor" />
+							<span class="cf2fa-badge"><f:translate id="method.recommended" package="Calmfox.TwoFactor" /></span>
+						</span>
+						<span class="cf2fa-choice-text"><f:translate id="setup.choice.passkey" package="Calmfox.TwoFactor" /></span>
+					</span>
+					<svg class="cf2fa-choice-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</a>
+				<a href="{chooseAppUri}" class="cf2fa-choice cf2fa-choice--app">
+					<span class="cf2fa-choice-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/><path d="M9 9.5h1.2M11.4 9.5h1.2M13.8 9.5H15M9 12.5h1.2M11.4 12.5h1.2M13.8 12.5H15"/></g></svg>
+					</span>
+					<span class="cf2fa-choice-body">
+						<span class="cf2fa-choice-title"><f:translate id="method.app" package="Calmfox.TwoFactor" /></span>
+						<span class="cf2fa-choice-text"><f:translate id="setup.choice.app" package="Calmfox.TwoFactor" /></span>
+					</span>
+					<svg class="cf2fa-choice-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</a>
+			</nav>
+		</f:defaultCase>
+	</f:switch>
+
+	<form method="post" action="{signOutUri}" class="cf2fa-sign-out">
+		<input type="hidden" name="__csrfToken" value="{f:security.csrfToken()}" />
+		<button type="submit" class="cf2fa-link"><f:translate id="page.signOut" package="Calmfox.TwoFactor" /></button>
+	</form>
+</f:section>

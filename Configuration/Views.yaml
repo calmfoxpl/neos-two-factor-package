@@ -1,0 +1,53 @@
+#
+# The two backend modules render inside Neos' module frame, whose layout
+# (BackendSubModule) lives in Neos.Neos. Without these paths Fluid looks for
+# it only in this package and the module answers with HTTP 500.
+#
+-
+  requestFilter: 'isPackage("Calmfox.TwoFactor") && isController("Module\Account")'
+  options:
+    templateRootPaths:
+      - 'resource://Calmfox.TwoFactor/Private/Templates'
+    layoutRootPaths:
+      - 'resource://Neos.Neos/Private/Layouts'
+    partialRootPaths:
+      - 'resource://Calmfox.TwoFactor/Private/Partials'
+      - 'resource://Neos.Neos/Private/Partials'
+
+-
+  requestFilter: 'isPackage("Calmfox.TwoFactor") && isController("Module\Users")'
+  options:
+    templateRootPaths:
+      - 'resource://Calmfox.TwoFactor/Private/Templates'
+    layoutRootPaths:
+      - 'resource://Neos.Neos/Private/Layouts'
+    partialRootPaths:
+      - 'resource://Calmfox.TwoFactor/Private/Partials'
+      - 'resource://Neos.Neos/Private/Partials'
+
+#
+# Neos' own user management: the user page and the user edit page get the
+# second factor under their content (reset and turn off, for administrators),
+# so a lost phone is dealt with where the user is. Only the page frame is
+# replaced (Layouts/NeosUsersModule), never Neos' templates; our partials are
+# looked up after Neos' own.
+#
+-
+  requestFilter: 'isPackage("Neos.Neos") && isController("Module\Administration\Users") && isAction("show")'
+  options:
+    layoutRootPaths:
+      - 'resource://Calmfox.TwoFactor/Private/Layouts/NeosUsersModule'
+      - 'resource://Neos.Neos/Private/Layouts'
+    partialRootPaths:
+      - 'resource://Neos.Neos/Private/Partials'
+      - 'resource://Calmfox.TwoFactor/Private/Partials'
+
+-
+  requestFilter: 'isPackage("Neos.Neos") && isController("Module\Administration\Users") && isAction("edit")'
+  options:
+    layoutRootPaths:
+      - 'resource://Calmfox.TwoFactor/Private/Layouts/NeosUsersModule'
+      - 'resource://Neos.Neos/Private/Layouts'
+    partialRootPaths:
+      - 'resource://Neos.Neos/Private/Partials'
+      - 'resource://Calmfox.TwoFactor/Private/Partials'

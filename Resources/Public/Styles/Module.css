@@ -1,0 +1,534 @@
+/*
+ * The two backend modules: the user's own methods, and the administrator's overview.
+ *
+ * Everything sits under ".neos .cf2fa-module": Neos' Lite.css styles bare tables, buttons and
+ * inputs inside the backend with selectors of that weight, and ours have to win without
+ * !important. Colours are Neos' own: #00adee for the accent, #00a338 / #ff8700 / #ff460d
+ * for good, pending and bad.
+ */
+.neos .cf2fa-module {
+    max-width: 64rem;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.neos .cf2fa-module .cf2fa-icon {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+    vertical-align: -3px;
+}
+
+.neos .cf2fa-module-lead {
+    margin: 0 0 1.5rem;
+    max-width: 48rem;
+    color: #adadad;
+}
+
+/* panels */
+
+.neos .cf2fa-panel {
+    margin: 0 0 1.5rem;
+    padding: 1.5rem;
+    background: #2b2b2b;
+    border: 1px solid #3f3f3f;
+    border-radius: 6px;
+}
+
+.neos .cf2fa-panel-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 0 0 1.25rem;
+}
+
+.neos .cf2fa-panel-header h2 {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #fff;
+}
+
+.neos .cf2fa-panel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #3f3f3f;
+    color: #fff;
+}
+
+.neos .cf2fa-panel-icon .cf2fa-icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: 0;
+}
+
+.neos .cf2fa-panel-icon--accent {
+    background: #00adee;
+}
+
+.neos .cf2fa-panel-text {
+    margin: -.5rem 0 1rem;
+    color: #adadad;
+    max-width: 48rem;
+}
+
+.neos .cf2fa-panel-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.neos .cf2fa-count {
+    display: inline-block;
+    min-width: 1.5rem;
+    padding: 0 .45rem;
+    border-radius: 999px;
+    background: #3f3f3f;
+    color: #adadad;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5rem;
+    text-align: center;
+}
+
+/* callouts */
+
+.neos .cf2fa-callout {
+    margin: 0 0 1.25rem;
+    padding: .75rem 1rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.neos .cf2fa-callout--warning {
+    background: rgba(255, 135, 0, .1);
+    border-color: rgba(255, 135, 0, .45);
+}
+
+.neos .cf2fa-callout--success {
+    background: rgba(0, 163, 56, .1);
+    border-color: rgba(0, 163, 56, .45);
+}
+
+/* the policy: three options side by side, the chosen one outlined */
+
+.neos .cf2fa-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: .75rem;
+}
+
+.neos .cf2fa-module label.cf2fa-option {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    margin: 0;
+    padding: 1rem;
+    background: #222;
+    border: 1px solid #3f3f3f;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color .15s, background-color .15s;
+}
+
+.neos .cf2fa-module label.cf2fa-option:hover {
+    border-color: #5b5b5b;
+}
+
+.neos .cf2fa-module label.cf2fa-option:has(input:checked) {
+    border-color: #00adee;
+    background: rgba(0, 173, 238, .08);
+}
+
+.neos .cf2fa-module label.cf2fa-option:has(input:focus-visible) {
+    outline: 2px solid #00adee;
+    outline-offset: 2px;
+}
+
+.neos .cf2fa-module input.cf2fa-option-input {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin: 1px 0 0;
+    padding: 0;
+    border: 2px solid #8a8a8a;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+}
+
+.neos .cf2fa-module input.cf2fa-option-input:checked {
+    border-color: #00adee;
+    background: radial-gradient(circle, #00adee 0 4px, transparent 5px);
+}
+
+.neos .cf2fa-option-body {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.neos .cf2fa-option-title {
+    font-weight: 600;
+    color: #fff;
+}
+
+.neos .cf2fa-option-text {
+    font-size: 13px;
+    line-height: 1.45;
+    color: #adadad;
+}
+
+/* the users table */
+
+.neos .cf2fa-table-wrap {
+    overflow-x: auto;
+    border: 1px solid #3f3f3f;
+    border-radius: 6px;
+}
+
+.neos .cf2fa-module table.cf2fa-users {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.neos .cf2fa-module table.cf2fa-users th {
+    padding: .6rem 1rem;
+    background: #222;
+    border-bottom: 1px solid #3f3f3f;
+    color: #adadad;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.neos .cf2fa-module table.cf2fa-users td {
+    padding: .75rem 1rem;
+    background: transparent;
+    border-bottom: 1px solid #333;
+    vertical-align: middle;
+}
+
+.neos .cf2fa-module table.cf2fa-users tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.neos .cf2fa-module table.cf2fa-users tbody tr:hover td {
+    background: rgba(255, 255, 255, .025);
+}
+
+.neos .cf2fa-module .cf2fa-users-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.neos .cf2fa-person {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.neos .cf2fa-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #3f3f3f;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+
+.neos .cf2fa-person-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.neos .cf2fa-person-name {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.neos .cf2fa-person-login {
+    color: #8a8a8a;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.neos .cf2fa-status-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .4rem;
+}
+
+/* pills, chips and tags */
+
+.neos .cf2fa-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .15rem .6rem .15rem .5rem;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.neos .cf2fa-pill::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.neos .cf2fa-pill--on {
+    background: rgba(0, 163, 56, .16);
+    color: #3ecf6e;
+}
+
+.neos .cf2fa-pill--due {
+    background: rgba(255, 135, 0, .16);
+    color: #ffa13d;
+}
+
+.neos .cf2fa-pill--off {
+    background: rgba(255, 70, 13, .16);
+    color: #ff7a52;
+}
+
+.neos .cf2fa-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    padding: .15rem .55rem;
+    border-radius: 4px;
+    background: #3a3a3a;
+    color: #d6d6d6;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.neos .cf2fa-chip .cf2fa-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: 0;
+}
+
+.neos .cf2fa-tag {
+    display: inline-block;
+    padding: 0 .4rem;
+    border-radius: 3px;
+    background: #00adee;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    line-height: 1.6;
+    text-transform: uppercase;
+}
+
+/* small outlined actions next to a row */
+
+.neos .cf2fa-inline {
+    display: inline-block;
+    margin: 0 0 0 .4rem;
+}
+
+.neos .cf2fa-module button.cf2fa-action {
+    height: auto;
+    min-width: 0;
+    margin: 0;
+    padding: .3rem .8rem;
+    background: transparent;
+    border: 1px solid #5b5b5b;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.4;
+    box-shadow: none;
+    text-shadow: none;
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+}
+
+.neos .cf2fa-module button.cf2fa-action:hover,
+.neos .cf2fa-module button.cf2fa-action:focus-visible {
+    background: #3f3f3f;
+    border-color: #8a8a8a;
+    outline: none;
+}
+
+.neos .cf2fa-module button.cf2fa-action--danger {
+    border-color: rgba(255, 70, 13, .6);
+    color: #ff7a52;
+}
+
+.neos .cf2fa-module button.cf2fa-action--danger:hover,
+.neos .cf2fa-module button.cf2fa-action--danger:focus-visible {
+    background: #ff460d;
+    border-color: #ff460d;
+    color: #fff;
+}
+
+/* what the two actions do, under the table */
+
+.neos .cf2fa-legend {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: .35rem 1rem;
+    margin: 1rem 0 0;
+    color: #8a8a8a;
+    font-size: 13px;
+}
+
+.neos .cf2fa-legend dt {
+    font-weight: 600;
+    color: #adadad;
+}
+
+.neos .cf2fa-legend dd {
+    margin: 0;
+}
+
+/* a list of paired methods on the user's own page */
+
+.neos .cf2fa-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid #3f3f3f;
+    border-radius: 6px;
+}
+
+.neos .cf2fa-list-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid #333;
+}
+
+.neos .cf2fa-list-item:last-child {
+    border-bottom: 0;
+}
+
+.neos .cf2fa-list-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #3a3a3a;
+}
+
+.neos .cf2fa-list-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.neos .cf2fa-list-title {
+    font-weight: 600;
+}
+
+.neos .cf2fa-list-meta {
+    color: #8a8a8a;
+    font-size: 12px;
+}
+
+.neos .cf2fa-status {
+    color: #adadad;
+    font-size: 13px;
+}
+
+/* pairing an app inside the module */
+
+.neos .cf2fa-steps {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.neos .cf2fa-steps li {
+    margin-bottom: 1rem;
+}
+
+.neos .cf2fa-qr {
+    display: block;
+    margin: .75rem 0;
+    padding: 8px;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.neos .cf2fa-manual summary {
+    cursor: pointer;
+    color: #adadad;
+}
+
+.neos .cf2fa-secret {
+    display: inline-block;
+    margin-top: .5rem;
+    padding: .4rem .6rem;
+    border-radius: 4px;
+    background: #222;
+    font-family: monospace;
+    font-size: 15px;
+    user-select: all;
+}
+
+.neos .cf2fa-module label {
+    display: block;
+    margin-bottom: .35rem;
+}
+
+.neos .cf2fa-module input.cf2fa-code {
+    box-sizing: border-box;
+    width: 11rem;
+    height: 36px;
+    margin: 0 .5rem .5rem 0;
+    font-size: 18px;
+    letter-spacing: .3em;
+    text-align: center;
+}
+
+.neos .cf2fa-module .cf2fa-wide {
+    vertical-align: top;
+}
+
+/* the section on a user's page in Neos' user management, moved above Neos' footer by the script */
+.neos .cf2fa-user-section {
+    max-width: 64rem;
+    margin-top: 2rem;
+}

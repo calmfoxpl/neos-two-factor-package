@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="Calmfox.TwoFactor" source-language="en" target-language="pl" datatype="plaintext">
+		<body>
+			<trans-unit id="users.label" xml:space="preserve">
+				<source>Two-Factor Authentication</source>
+				<target>Weryfikacja dwuetapowa</target>
+			</trans-unit>
+			<trans-unit id="users.description" xml:space="preserve">
+				<source>Who must use a second factor, and who has paired one.</source>
+				<target>Kto musi używać drugiego składnika i kto już go sparował.</target>
+			</trans-unit>
+			<trans-unit id="account.label" xml:space="preserve">
+				<source>Two-Factor Authentication</source>
+				<target>Weryfikacja dwuetapowa</target>
+			</trans-unit>
+			<trans-unit id="account.description" xml:space="preserve">
+				<source>Your passkeys and your authenticator app.</source>
+				<target>Twoje klucze dostępu i aplikacja uwierzytelniająca.</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

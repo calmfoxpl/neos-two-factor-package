@@ -1,0 +1,45 @@
+{
+    "name": "calmfox/neos-two-factor-package",
+    "type": "neos-package",
+    "description": "Two-factor authentication for the Neos CMS backend: a passkey (fingerprint, face or device PIN) or an authenticator app (TOTP), with a policy and per-user management in the backend.",
+    "keywords": ["neos", "flow", "2fa", "two-factor", "totp", "passkey", "webauthn", "security"],
+    "homepage": "https://github.com/calmfoxpl/neos-two-factor-package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Calmfox",
+            "email": "kontakt@calmfox.pl",
+            "homepage": "https://calmfox.pl"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-sodium": "*",
+        "bacon/bacon-qr-code": "^3.0",
+        "lbuchs/webauthn": "^2.2",
+        "neos/flow": "^8.3 || ^9.0",
+        "neos/neos": "^8.3 || ^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Calmfox\\TwoFactor\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Calmfox\\TwoFactor\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Calmfox.TwoFactor"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/calmfoxpl/neos-two-factor-package/issues",
+        "source": "https://github.com/calmfoxpl/neos-two-factor-package",
+        "security": "https://github.com/calmfoxpl/neos-two-factor-package/security/policy"
+    }
+}

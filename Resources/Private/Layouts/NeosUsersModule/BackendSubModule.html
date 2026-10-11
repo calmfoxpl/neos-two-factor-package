@@ -1,0 +1,19 @@
+{namespace cf2fa=Calmfox\TwoFactor\ViewHelpers}
+<f:comment>
+	Neos' own BackendSubModule layout (identical in Neos 8.3 and 9), used for the user page and
+	the user edit page of Administration → User Management, with the sections of the installed
+	Calmfox packages under the page's content. calmfox/neos-admin-invitation-package ships the
+	same frame; Neos uses one of the two, and either renders every section
+	(UserSectionsViewHelper, Calmfox.UserManagement.sections). See Configuration/Views.yaml.
+</f:comment>
+<div class="neos-content neos-container-fluid">
+	<f:render section="subtitle" optional="1" />
+
+	<f:render section="validationResults" optional="1" />
+
+	<f:render section="content" />
+
+	<f:if condition="{user}">
+		<cf2fa:userSections user="{user}" />
+	</f:if>
+</div>

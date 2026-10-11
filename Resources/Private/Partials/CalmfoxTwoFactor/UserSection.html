@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="{twoFactor.stylesheetUri}" />
+<div class="neos-row-fluid neos-module-container cf2fa-module cf2fa-user-section">
+	<section class="cf2fa-panel">
+		<header class="cf2fa-panel-header">
+			<span class="cf2fa-panel-icon"><f:render partial="Icon/Shield" /></span>
+			<h2><f:translate id="users.section.title" package="Calmfox.TwoFactor" /></h2>
+		</header>
+
+		<f:if condition="{twoFactor.active}">
+			<f:else>
+				<p class="cf2fa-callout cf2fa-callout--warning"><f:translate id="users.list.disabled" package="Calmfox.TwoFactor" /></p>
+			</f:else>
+		</f:if>
+
+		<ul class="cf2fa-list">
+			<f:for each="{twoFactor.accounts}" as="account">
+				<li class="cf2fa-list-item">
+					<span class="cf2fa-list-icon"><f:render partial="Icon/Shield" /></span>
+					<span class="cf2fa-list-body">
+						<span class="cf2fa-list-title cf2fa-status-line">
+							{account.username}
+							<f:if condition="{account.covered}">
+								<f:then>
+									<span class="cf2fa-pill cf2fa-pill--on"><f:translate id="status.paired" package="Calmfox.TwoFactor" /></span>
+									<f:if condition="{account.passkeys}">
+										<span class="cf2fa-chip" title="{f:translate(id: 'method.passkeys', package: 'Calmfox.TwoFactor')}"><f:render partial="Icon/Key" /> {account.passkeys}</span>
+									</f:if>
+									<f:if condition="{account.hasApp}">
+										<span class="cf2fa-chip" title="{f:translate(id: 'method.app', package: 'Calmfox.TwoFactor')}"><f:render partial="Icon/Phone" /> <f:translate id="status.app" package="Calmfox.TwoFactor" /></span>
+									</f:if>
+								</f:then>
+								<f:else>
+									<f:if condition="{account.setupRequired}">
+										<f:then><span class="cf2fa-pill cf2fa-pill--due"><f:translate id="status.pairingDue" package="Calmfox.TwoFactor" /></span></f:then>
+										<f:else><span class="cf2fa-pill cf2fa-pill--off"><f:translate id="status.notPaired" package="Calmfox.TwoFactor" /></span></f:else>
+									</f:if>
+								</f:else>
+							</f:if>
+						</span>
+					</span>
+					<f:if condition="{account.hasAnything}">
+						<form method="post" action="{twoFactor.resetUri}" class="cf2fa-inline" data-confirm="{account.confirmReset}">
+							<input type="hidden" name="__csrfToken" value="{twoFactor.csrfToken}" />
+							<input type="hidden" name="account" value="{account.identifier}" />
+							<input type="hidden" name="returnTo" value="{twoFactor.returnTo}" />
+							<button type="submit" class="cf2fa-action"><f:translate id="users.reset" package="Calmfox.TwoFactor" /></button>
+						</form>
+						<form method="post" action="{twoFactor.turnOffUri}" class="cf2fa-inline" data-confirm="{account.confirmTurnOff}">
+							<input type="hidden" name="__csrfToken" value="{twoFactor.csrfToken}" />
+							<input type="hidden" name="account" value="{account.identifier}" />
+							<input type="hidden" name="returnTo" value="{twoFactor.returnTo}" />
+							<button type="submit" class="cf2fa-action cf2fa-action--danger"><f:translate id="users.turnOff" package="Calmfox.TwoFactor" /></button>
+						</form>
+					</f:if>
+				</li>
+			</f:for>
+		</ul>
+
+		<dl class="cf2fa-legend">
+			<dt><f:translate id="users.reset" package="Calmfox.TwoFactor" /></dt>
+			<dd><f:translate id="users.legend.reset" package="Calmfox.TwoFactor" /></dd>
+			<dt><f:translate id="users.turnOff" package="Calmfox.TwoFactor" /></dt>
+			<dd><f:translate id="users.legend.turnOff" package="Calmfox.TwoFactor" /></dd>
+		</dl>
+	</section>
+</div>
+<script src="{twoFactor.scriptUri}"></script>

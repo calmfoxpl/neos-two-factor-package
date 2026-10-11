@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{f:translate(id: 'page.language', package: 'Calmfox.TwoFactor')}">
+<head>
+	<meta charset="utf-8" />
+	<meta name="robots" content="noindex" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title><f:render section="title" /></title>
+	<f:for each="{stylesheets}" as="stylesheet">
+		<link rel="stylesheet" href="{f:uri.resource(path: stylesheet)}" />
+	</f:for>
+	<link rel="stylesheet" href="{pageStylesheetUri}" />
+	<link href="{f:uri.resource(path: 'Images/Icons/favicon-32x32.png', package: 'Neos.Neos')}" sizes="32x32" rel="icon" type="image/png" />
+</head>
+<body class="neos{f:if(condition: backgroundUri, then: ' neos--bg')}" style="{bodyStyle}">
+	<div class="neos-modal-centered">
+		<main class="neos-login-main">
+			<div class="neos-login-box{f:if(condition: backgroundUri, then: ' background-image-active')}">
+				<f:if condition="{logoUri}">
+					<figure class="neos-login-box-logo">
+						<img class="neos-login-box-logo-resource" src="{logoUri}" width="200" height="200" alt="" />
+					</figure>
+				</f:if>
+				<div class="neos-login-body neos cf2fa">
+					<f:flashMessages as="messages">
+						<f:for each="{messages}" as="message">
+							<p class="cf2fa-message cf2fa-message--{message.severity -> f:format.case(mode: 'lower')}" role="alert">{message}</p>
+						</f:for>
+					</f:flashMessages>
+					<f:render section="content" />
+				</div>
+			</div>
+		</main>
+	</div>
+	<script src="{passkeyScriptUri}"></script>
+</body>
+</html>

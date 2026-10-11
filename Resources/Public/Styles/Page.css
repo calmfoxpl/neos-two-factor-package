@@ -1,0 +1,309 @@
+/*
+ * The verification and setup pages sit in Neos' own sign-in box (Login.css); this only adds
+ * what that box has no need for: a longer text, a QR code, a second method.
+ */
+body.neos--bg,
+body.neos--bg .neos-login-box:before {
+    background-image: var(--cf2fa-background);
+}
+
+.neos .neos-login-box {
+    /* a little wider than the password box: these pages have sentences, not two fields */
+    width: 380px;
+    max-width: calc(100vw - 2rem);
+    box-sizing: border-box;
+}
+
+.cf2fa .neos-button {
+    display: block;
+    height: 40px;
+    padding: 0 1rem;
+    border: 0;
+    border-radius: 0;
+    background: rgba(50, 50, 50, .85);
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.cf2fa .neos-button:hover,
+.cf2fa .neos-button:focus {
+    background: #3f3f3f;
+}
+
+.cf2fa .neos-button-primary {
+    background: #00adee;
+}
+
+.cf2fa .neos-button-primary:hover,
+.cf2fa .neos-button-primary:focus {
+    background: #0094cc;
+}
+
+.cf2fa .neos-button[disabled] {
+    opacity: .6;
+    cursor: progress;
+}
+
+.cf2fa {
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+    text-align: left;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+}
+
+.cf2fa-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0 0 .5rem;
+}
+
+.cf2fa-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 .5rem;
+}
+
+.cf2fa-lead,
+.cf2fa-method p,
+.cf2fa-steps {
+    line-height: 1.5;
+}
+
+.cf2fa-method {
+    margin: 1rem 0;
+}
+
+.cf2fa label {
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.cf2fa-code {
+    box-sizing: border-box;
+    width: 100%;
+    height: 2.5rem;
+    margin-bottom: .5rem;
+    padding: 0 .75rem;
+    font-size: 1.4rem;
+    letter-spacing: .4em;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.cf2fa-wide {
+    width: 100%;
+    margin-top: .5rem;
+}
+
+.cf2fa-or {
+    text-align: center;
+    opacity: .7;
+    margin: 1rem 0;
+}
+
+.cf2fa-hint,
+.cf2fa-status {
+    font-size: .85rem;
+    opacity: .8;
+    min-height: 1em;
+}
+
+.cf2fa-badge {
+    display: inline-block;
+    margin-left: .4rem;
+    padding: .05rem .4rem;
+    border-radius: 2px;
+    background: #00adee;
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.cf2fa-steps {
+    padding-left: 1.25rem;
+}
+
+.cf2fa-steps li {
+    margin-bottom: 1rem;
+}
+
+.cf2fa-qr {
+    display: block;
+    margin: .75rem 0;
+    padding: 8px;
+    background: #fff;
+    width: 200px;
+    height: 200px;
+}
+
+.cf2fa-manual summary {
+    cursor: pointer;
+}
+
+.cf2fa-secret {
+    display: block;
+    margin-top: .5rem;
+    padding: .5rem;
+    font-family: monospace;
+    font-size: 1rem;
+    word-break: break-all;
+    user-select: all;
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+}
+
+.cf2fa-message {
+    padding: .5rem .75rem;
+    margin: 0 0 1rem;
+    border-left: 3px solid #00adee;
+    background: rgba(0, 0, 0, .25);
+}
+
+.cf2fa-message--error {
+    border-color: #ff460d;
+}
+
+.cf2fa-message--ok {
+    border-color: #00a338;
+}
+
+.cf2fa-sign-out {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.cf2fa-link {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    opacity: .8;
+    text-decoration: underline;
+    cursor: pointer;
+    font: inherit;
+}
+
+.cf2fa-link:hover,
+.cf2fa-link:focus {
+    opacity: 1;
+}
+
+/* The first step: two methods to choose from, the recommended one first. */
+.cf2fa-choices {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    margin: 1.5rem 0 0;
+}
+
+.neos .cf2fa a.cf2fa-choice,
+.neos .cf2fa a.cf2fa-choice:visited {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: 1rem;
+    background: rgba(20, 20, 20, .55);
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color .15s, border-color .15s, transform .15s;
+}
+
+.neos .cf2fa a.cf2fa-choice:hover,
+.neos .cf2fa a.cf2fa-choice:focus-visible {
+    background: rgba(20, 20, 20, .78);
+    border-color: #00adee;
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.cf2fa-choice-icon {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+}
+
+.cf2fa-choice--passkey .cf2fa-choice-icon {
+    background: #00adee;
+}
+
+.cf2fa-choice-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.cf2fa-choice-body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.cf2fa-choice-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .25rem .45rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: .3rem;
+}
+
+.cf2fa-choice-title .cf2fa-badge {
+    margin-left: 0;
+}
+
+.cf2fa-choice-text {
+    display: block;
+    font-size: .8125rem;
+    line-height: 1.45;
+    opacity: .85;
+}
+
+.cf2fa-choice-arrow {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    opacity: .6;
+    transition: opacity .15s, transform .15s;
+}
+
+.neos .cf2fa a.cf2fa-choice:hover .cf2fa-choice-arrow,
+.neos .cf2fa a.cf2fa-choice:focus-visible .cf2fa-choice-arrow {
+    opacity: 1;
+    transform: translateX(2px);
+}
+
+.cf2fa-back {
+    margin: 1.25rem 0 0;
+    text-align: center;
+}
+
+.cf2fa-back + .cf2fa-sign-out {
+    margin-top: .75rem;
+}
+
+/* Login.css gives inputs its own padding and border; keep the code field as wide as its button */
+.neos .cf2fa input.cf2fa-code {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+}
+
+.cf2fa-choices + .cf2fa-sign-out {
+    margin-top: 1.5rem;
+}
